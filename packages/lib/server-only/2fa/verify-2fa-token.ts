@@ -3,7 +3,7 @@ import { TOTPController } from 'oslo/otp';
 
 import type { User } from '@documenso/prisma/client';
 
-import { DOCUMENSO_ENCRYPTION_KEY } from '../../constants/crypto';
+import { ENCRYPTION_KEY } from '../../constants/crypto';
 import { symmetricDecrypt } from '../../universal/crypto';
 
 const totp = new TOTPController();
@@ -17,7 +17,7 @@ export const verifyTwoFactorAuthenticationToken = async ({
   user,
   totpCode,
 }: VerifyTwoFactorAuthenticationTokenOptions) => {
-  const key = DOCUMENSO_ENCRYPTION_KEY;
+  const key = ENCRYPTION_KEY;
 
   if (!user.twoFactorSecret) {
     throw new Error('user missing 2fa secret');
