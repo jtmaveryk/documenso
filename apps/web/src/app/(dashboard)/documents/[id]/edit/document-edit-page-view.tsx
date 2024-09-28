@@ -6,7 +6,7 @@ import { ChevronLeft, Users2 } from 'lucide-react';
 import { match } from 'ts-pattern';
 
 import { isUserEnterprise } from '@documenso/ee/server-only/util/is-document-enterprise';
-import { DOCUMENSO_ENCRYPTION_KEY } from '@documenso/lib/constants/crypto';
+import { ENCRYPTION_KEY } from '@documenso/lib/constants/crypto';
 import { getRequiredServerComponentSession } from '@documenso/lib/next-auth/get-server-component-session';
 import { getDocumentWithDetailsById } from '@documenso/lib/server-only/document/get-document-with-details-by-id';
 import { DocumentVisibility } from '@documenso/lib/types/document-visibility';
@@ -81,10 +81,10 @@ export const DocumentEditPageView = async ({ params, team }: DocumentEditPageVie
   const { documentMeta, Recipient: recipients } = document;
 
   if (documentMeta?.password) {
-    const key = DOCUMENSO_ENCRYPTION_KEY;
+    const key = ENCRYPTION_KEY;
 
     if (!key) {
-      throw new Error('Missing DOCUMENSO_ENCRYPTION_KEY');
+      throw new Error('Missing NEXT_PRIVATE_ENCRYPTION_KEY encryption key variable');
     }
 
     const securePassword = Buffer.from(
