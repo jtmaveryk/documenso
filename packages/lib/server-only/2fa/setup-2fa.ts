@@ -6,7 +6,7 @@ import { ErrorCode } from '@documenso/lib/next-auth/error-codes';
 import { prisma } from '@documenso/prisma';
 import { type User } from '@documenso/prisma/client';
 
-import { DOCUMENSO_ENCRYPTION_KEY } from '../../constants/crypto';
+import { ENCRYPTION_KEY } from '../../constants/crypto';
 import { symmetricEncrypt } from '../../universal/crypto';
 
 type SetupTwoFactorAuthenticationOptions = {
@@ -18,7 +18,7 @@ const ISSUER = 'Documenso';
 export const setupTwoFactorAuthentication = async ({
   user,
 }: SetupTwoFactorAuthenticationOptions) => {
-  const key = DOCUMENSO_ENCRYPTION_KEY;
+  const key = ENCRYPTION_KEY;
 
   if (!key) {
     throw new Error(ErrorCode.MISSING_ENCRYPTION_KEY);
