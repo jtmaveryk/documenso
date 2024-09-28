@@ -2,7 +2,7 @@ import { headers } from 'next/headers';
 import { notFound, redirect } from 'next/navigation';
 
 import { setupI18nSSR } from '@documenso/lib/client-only/providers/i18n.server';
-import { DOCUMENSO_ENCRYPTION_KEY } from '@documenso/lib/constants/crypto';
+import { ENCRYPTION_KEY } from '@documenso/lib/constants/crypto';
 import { getServerComponentSession } from '@documenso/lib/next-auth/get-server-component-session';
 import { getDocumentAndSenderByToken } from '@documenso/lib/server-only/document/get-document-by-token';
 import { isRecipientAuthorized } from '@documenso/lib/server-only/document/is-recipient-authorized';
@@ -109,10 +109,10 @@ export default async function SigningPage({ params: { token } }: SigningPageProp
   }
 
   if (documentMeta?.password) {
-    const key = DOCUMENSO_ENCRYPTION_KEY;
+    const key = ENCRYPTION_KEY;
 
     if (!key) {
-      throw new Error('Missing DOCUMENSO_ENCRYPTION_KEY');
+      throw new Error('Missing ENCRYPTION_KEY');
     }
 
     const securePassword = Buffer.from(
