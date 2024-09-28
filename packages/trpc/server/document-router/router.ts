@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 
 import { getServerLimits } from '@documenso/ee/server-only/limits/server';
 import { NEXT_PUBLIC_WEBAPP_URL } from '@documenso/lib/constants/app';
-import { DOCUMENSO_ENCRYPTION_KEY } from '@documenso/lib/constants/crypto';
+import { ENCRYPTION_KEY } from '@documenso/lib/constants/crypto';
 import { AppError } from '@documenso/lib/errors/app-error';
 import { encryptSecondaryData } from '@documenso/lib/server-only/crypto/encrypt';
 import { upsertDocumentMeta } from '@documenso/lib/server-only/document-meta/upsert-document-meta';
@@ -282,10 +282,10 @@ export const documentRouter = router({
       try {
         const { documentId, password } = input;
 
-        const key = DOCUMENSO_ENCRYPTION_KEY;
+        const key = ENCRYPTION_KEY;
 
         if (!key) {
-          throw new Error('Missing encryption key');
+          throw new Error('Missing NEXT_PRIVATE_ENCRYPTION_KEY encryption key variable');
         }
 
         const securePassword = symmetricEncrypt({
