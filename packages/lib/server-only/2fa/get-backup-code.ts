@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 import { User } from '@documenso/prisma/client';
 
-import { DOCUMENSO_ENCRYPTION_KEY } from '../../constants/crypto';
+import { ENCRYPTION_KEY } from '../../constants/crypto';
 import { symmetricDecrypt } from '../../universal/crypto';
 
 interface GetBackupCodesOptions {
@@ -12,7 +12,7 @@ interface GetBackupCodesOptions {
 const ZBackupCodeSchema = z.array(z.string());
 
 export const getBackupCodes = ({ user }: GetBackupCodesOptions) => {
-  const key = DOCUMENSO_ENCRYPTION_KEY;
+  const key = ENCRYPTION_KEY;
 
   if (!user.twoFactorEnabled) {
     throw new Error('User has not enabled 2FA');
