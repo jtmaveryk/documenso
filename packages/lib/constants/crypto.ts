@@ -14,6 +14,6 @@ if (typeof window === 'undefined') {
   }
 }
 
-if (DENCRYPTION_KEY === 'CAFEBABE') {
+if (ENCRYPTION_KEY === 'CAFEBABE') {
   console.warn('Please change the encryption key from the default value of "CAFEBABE"');
 }
