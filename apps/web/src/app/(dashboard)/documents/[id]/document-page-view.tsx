@@ -6,7 +6,7 @@ import { useLingui } from '@lingui/react';
 import { ChevronLeft, Clock9, Users2 } from 'lucide-react';
 import { match } from 'ts-pattern';
 
-import { DOCUMENSO_ENCRYPTION_KEY } from '@documenso/lib/constants/crypto';
+import { ENCRYPTION_KEY } from '@documenso/lib/constants/crypto';
 import { getRequiredServerComponentSession } from '@documenso/lib/next-auth/get-server-component-session';
 import { getDocumentById } from '@documenso/lib/server-only/document/get-document-by-id';
 import { getServerComponentFlag } from '@documenso/lib/server-only/feature-flags/get-server-component-feature-flag';
@@ -99,10 +99,10 @@ export const DocumentPageView = async ({ params, team }: DocumentPageViewProps) 
   const { documentData, documentMeta } = document;
 
   if (documentMeta?.password) {
-    const key = DOCUMENSO_ENCRYPTION_KEY;
+    const key = ENCRYPTION_KEY;
 
     if (!key) {
-      throw new Error('Missing DOCUMENSO_ENCRYPTION_KEY');
+      throw new Error('Missing NEXT_PRIVATE_ENCRYPTION_KEY encryption key variable');
     }
 
     const securePassword = Buffer.from(
